@@ -1,0 +1,283 @@
+:root {
+  --font-weight-normal: 400;
+  --font-weight-semibold: 600;
+  --font-weight-black: 900;
+  --line-height-body: 1.5;
+  --line-height-heading: 1.2;
+  --color-01: #1c2833;
+  --color-02: #b7c5d3;
+  --color-03: #c18522;
+  --color-04: #1e3f58;
+  --color-05: #fff;
+  --color-background: linear-gradient(
+    142deg,
+    #b7c5d3 14.38%,
+    #bcc9d6 19.47%,
+    #c1cdd9 24.56%,
+    #c6d1dc 29.65%,
+    #cbd5df 34.73%,
+    #d0d9e3 39.82%,
+    #d6dee6 44.91%,
+    #dbe2e9 50%,
+    #e0e6ec 55.09%,
+    #e5eaef 60.18%,
+    #eaeef2 65.27%,
+    #eff2f5 70.35%,
+    #f5f7f9 75.44%,
+    #fafbfc 80.53%,
+    #ffffff 85.62%
+  );
+  --color-text: var(--color-01);
+  --color-highlight: var(--color-03);
+}
+
+/* Fluid font size variables, for browsers that support clamp */
+@supports (font-size: clamp(1rem, 1vw, 1rem)) {
+  :root {
+    --font-size-sm: clamp(0.8rem, 0.25vw + 0.74rem, 0.94rem);
+    --font-size-base: clamp(1rem, 0.45vw + 0.89rem, 1.25rem);
+    --font-size-md: clamp(1.25rem, 0.76vw + 1.06rem, 1.67rem);
+    --font-size-lg: clamp(1.56rem, 1.2vw + 1.26rem, 2.22rem);
+    --font-size-xl: clamp(1.95rem, 1.83vw + 1.5rem, 2.96rem);
+    --font-size-xxl: clamp(2.44rem, 2.74vw + 1.76rem, 3.95rem);
+    --font-size-xxxl: clamp(3.05rem, 4.02vw + 2.05rem, 5.26rem);
+  }
+}
+/* Fallback variables for browsers that don't support clamp */
+@supports not (font-size: clamp(1rem, 1vw, 1rem)) {
+  :root {
+    --font-size-sm: 0.8rem;
+    --font-size-base: 1rem;
+    --font-size-md: 1.25rem;
+    --font-size-lg: 1.56rem;
+    --font-size-xl: 1.95rem;
+    --font-size-xxl: 2.44rem;
+    --font-size-xxxl: 3.05rem;
+  }
+  @media screen and (min-width: 1280px) {
+    :root {
+      --font-size-sm: 0.94rem;
+      --font-size-base: 1.25rem;
+      --font-size-md: 1.67rem;
+      --font-size-lg: 2.22rem;
+      --font-size-xl: 2.96rem;
+      --font-size-xxl: 3.95rem;
+      --font-size-xxxl: 5.26rem;
+    }
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: linear-gradient(
+      142deg,
+      #1c2833 0%,
+      #1d2a37 11.11%,
+      #1d2d3b 22.22%,
+      #1d2f3f 33.33%,
+      #1e3243 44.44%,
+      #1e3547 55.56%,
+      #1e374b 66.67%,
+      #1e3a50 77.78%,
+      #1e3c54 88.89%,
+      #1e3f58 100%
+    );
+    --color-text: var(--color-02);
+  }
+  html {
+    color-scheme: dark;
+  }
+}
+
+/*
+  Josh's Custom CSS Reset
+  https://www.joshwcomeau.com/css/custom-css-reset/
+*/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-body);
+  color: var(--color-text);
+  background: var(--color-background), url('../public/images/bg.jpeg');
+  background-position: center, bottom;
+  background-size: auto, cover;
+  background-blend-mode: screen;
+  background-attachment: fixed;
+}
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+figcaption {
+  overflow-wrap: break-word;
+  margin: 0;
+  max-inline-size: 60ch;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: var(--line-height-heading);
+}
+
+h1 {
+  font-size: var(--font-size-xxxl);
+  font-weight: var(--font-weight-black);
+  letter-spacing: -3px;
+  max-inline-size: 16ch;
+}
+h2 {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+}
+h3 {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+}
+h4 {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+}
+strong {
+  font-weight: var(--font-weight-black);
+}
+
+#root,
+#__next {
+  isolation: isolate;
+}
+
+.highlight {
+  color: var(--color-highlight);
+}
+.subtitle {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-normal);
+}
+
+.card {
+  background: var(--color-highlight);
+  background-repeat: no-repeat;
+  background-size: 90% 90%;
+  max-width: 20rem;
+  text-align: center;
+  border-radius: 4px;
+  background-blend-mode: soft-light;
+  color: var(--color-01);
+}
+
+.card--hike {
+  background-image: url('../public/images/person-hiking-solid.svg');
+  background-position: left -250% bottom -90%;
+}
+.card--bike {
+  background-image: url('../public/images/bicycle-solid.svg');
+  background-position: left -160% bottom -220%;
+}
+
+.card__length {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-black);
+  line-height: 1;
+}
+
+.contact {
+  border: 2px solid var(--color-04);
+  border-radius: 50rem;
+  display: flex;
+  align-items: center;
+  align-self: flex-start;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  text-decoration: none;
+  text-transform: uppercase;
+  width: 100%;
+  max-width: 20rem;
+  transition: all 500ms cubic-bezier(0.455, 0.03, 0.515, 0.955);
+}
+
+.contact:hover {
+  background: var(--color-04);
+  color: var(--color-05);
+}
+.contact:focus {
+  background: var(--color-04);
+  color: var(--color-05);
+  outline: 2px solid var(--color-04);
+  outline-offset: 2px;
+}
+
+.footer {
+  font-size: var(--font-size-md);
+}
+
+@media screen and (max-width: 48rem) {
+  .main-content {
+    text-align: center;
+    justify-content: center;
+  }
+  .tracks-block.tracks-block {
+    justify-content: center;
+  }
+  .footer {
+    text-align: center;
+  }
+  .contact {
+    align-self: center;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-blend-mode: multiply;
+  }
+
+  .contact {
+    border-color: var(--color-02);
+  }
+  .contact:hover {
+    background: var(--color-02);
+    color: var(--color-01);
+  }
+  .contact:focus {
+    background: var(--color-02);
+    color: var(--color-01);
+    outline: 2px solid var(--color-02);
+    outline-offset: 2px;
+  }
+}
