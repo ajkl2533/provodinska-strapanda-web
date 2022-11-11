@@ -1,0 +1,133 @@
+on: push
+name: 🚀 Deploy website on push to master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v3
+
+      - name: Use Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: 🗄 Cache node modules
+        uses: actions/cache@v3
+        id: cache
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock', '**/package.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-${{ env.cache-name }}-
+            ${{ runner.OS }}-node-
+
+      - name: 🦄 Install Packages
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: yarn install --frozen-lockfile
+
+      - name: 🗄 Cache build
+        uses: actions/cache@v3
+        id: build
+        with:
+          path: .next
+          key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock', '**/package.json', 'pages/**', 'public/**', 'styles/**') }}
+          restore-keys: |
+            ${{ runner.OS }}-build-${{ env.cache-name }}-
+            ${{ runner.OS }}-build-
+
+      - name: 🛠 Build project
+        if: steps.build.outputs.cache-hit != 'true'
+        run: yarn build
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v3
+
+      - name: Use Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: 🗄 Cache node modules
+        uses: actions/cache@v3
+        id: cache
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node}-${{ hashFiles('**/yarn.lock', '**/package.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-${{ env.cache-name }}-
+            ${{ runner.OS }}-node-
+
+      - name: 🦄 Install Packages
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: yarn install --frozen-lockfile
+
+      - name: 👀 Run Lint
+        run: yarn lint
+
+  web-deploy:
+    name: 🎉 Deploy
+    if: "github.event_name == 'push' && github.ref == 'refs/heads/main'"
+    needs: [lint, build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v3
+
+      - name: Use Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: 🗄 Cache node modules
+        uses: actions/cache@v3
+        id: cache
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock', '**/package.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-${{ env.cache-name }}-
+            ${{ runner.OS }}-node-
+
+      - name: 🦄 Install Packages
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: yarn install --frozen-lockfile
+
+      - name: 🗄 Cache build
+        uses: actions/cache@v3
+        id: build
+        with:
+          path: .next
+          key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock', '**/package.json', 'pages/**', 'public/**', 'styles/**') }}
+          restore-keys: |
+            ${{ runner.OS }}-build-${{ env.cache-name }}-
+            ${{ runner.OS }}-build-
+
+      - name: 🛠 Build project
+        if: steps.build.outputs.cache-hit != 'true'
+        run: yarn build
+
+      - name: 🗄 Cache static files
+        uses: actions/cache@v3
+        id: static
+        with:
+          path: out
+          key: ${{ runner.os }}-static-${{ hashFiles('**/yarn.lock', '**/package.json', 'pages/**', 'public/**', 'styles/**') }}
+          restore-keys: |
+            ${{ runner.OS }}-static-${{ env.cache-name }}-
+            ${{ runner.OS }}-static-
+
+      - name: 🎁 Export static files
+        if: steps.static.outputs.cache-hit != 'true'
+        run: yarn export
+
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@4.3.2
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./out/
