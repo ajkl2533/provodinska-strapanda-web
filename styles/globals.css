@@ -34,35 +34,35 @@
 /* Fluid font size variables, for browsers that support clamp */
 @supports (font-size: clamp(1rem, 1vw, 1rem)) {
   :root {
-    --font-size-sm: clamp(0.8rem, 0.25vw + 0.74rem, 0.94rem);
-    --font-size-base: clamp(1rem, 0.45vw + 0.89rem, 1.25rem);
-    --font-size-md: clamp(1.25rem, 0.76vw + 1.06rem, 1.67rem);
-    --font-size-lg: clamp(1.56rem, 1.2vw + 1.26rem, 2.22rem);
-    --font-size-xl: clamp(1.95rem, 1.83vw + 1.5rem, 2.96rem);
-    --font-size-xxl: clamp(2.44rem, 2.74vw + 1.76rem, 3.95rem);
-    --font-size-xxxl: clamp(3.05rem, 4.02vw + 2.05rem, 5.26rem);
+    --font-size-sm: clamp(0.7rem, 0.26vw + 0.63rem, 0.84rem);
+    --font-size-base: clamp(0.88rem, 0.45vw + 0.76rem, 1.13rem);
+    --font-size-md: clamp(1.09rem, 0.74vw + 0.91rem, 1.5rem);
+    --font-size-lg: clamp(1.37rem, 1.15vw + 1.08rem, 2rem);
+    --font-size-xl: clamp(1.71rem, 1.74vw + 1.27rem, 2.66rem);
+    --font-size-xxl: clamp(2.14rem, 2.57vw + 1.49rem, 3.55rem);
+    --font-size-xxxl: clamp(2.67rem, 3.75vw + 1.73rem, 4.73rem);
   }
 }
 /* Fallback variables for browsers that don't support clamp */
 @supports not (font-size: clamp(1rem, 1vw, 1rem)) {
   :root {
-    --font-size-sm: 0.8rem;
-    --font-size-base: 1rem;
-    --font-size-md: 1.25rem;
-    --font-size-lg: 1.56rem;
-    --font-size-xl: 1.95rem;
-    --font-size-xxl: 2.44rem;
-    --font-size-xxxl: 3.05rem;
+    --font-size-sm: 0.7rem;
+    --font-size-base: 0.88rem;
+    --font-size-md: 1.09rem;
+    --font-size-lg: 1.37rem;
+    --font-size-xl: 1.71rem;
+    --font-size-xxl: 2.14rem;
+    --font-size-xxxl: 2.67rem;
   }
   @media screen and (min-width: 1280px) {
     :root {
-      --font-size-sm: 0.94rem;
-      --font-size-base: 1.25rem;
-      --font-size-md: 1.67rem;
-      --font-size-lg: 2.22rem;
-      --font-size-xl: 2.96rem;
-      --font-size-xxl: 3.95rem;
-      --font-size-xxxl: 5.26rem;
+      --font-size-sm: 0.84rem;
+      --font-size-base: 1.13rem;
+      --font-size-md: 1.5rem;
+      --font-size-lg: 2rem;
+      --font-size-xl: 2.66rem;
+      --font-size-xxl: 3.55rem;
+      --font-size-xxxl: 4.73rem;
     }
   }
 }
@@ -230,10 +230,11 @@ strong {
   max-width: 20rem;
   transition: all 500ms cubic-bezier(0.455, 0.03, 0.515, 0.955);
 }
-
-.contact:hover {
-  background: var(--color-04);
-  color: var(--color-05);
+@media (hover: hover) {
+  .contact:hover {
+    background: var(--color-04);
+    color: var(--color-05);
+  }
 }
 .contact:focus {
   background: var(--color-04);
@@ -270,9 +271,11 @@ strong {
   .contact {
     border-color: var(--color-02);
   }
-  .contact:hover {
-    background: var(--color-02);
-    color: var(--color-01);
+  @media (hover: hover) {
+    .contact:hover {
+      background: var(--color-02);
+      color: var(--color-01);
+    }
   }
   .contact:focus {
     background: var(--color-02);

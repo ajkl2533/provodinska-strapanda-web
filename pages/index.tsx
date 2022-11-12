@@ -15,7 +15,7 @@ const Card = ({
   length: string;
   className?: string;
 }) => (
-  <PadBox padding="2rem" className={`card ${className}`}>
+  <PadBox padding="1rem" className={`card ${className}`}>
     <Stack gutter="1rem">
       <h4>{type}</h4>
       <div>{count}</div>
